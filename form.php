@@ -1,3 +1,26 @@
+<?php
+// ket noi db
+$host = "localhost";
+$user = "root";
+$pwd = "root";
+$db = "t2207a";
+
+$conn = new mysqli($host,$user,$pwd,$db);
+if($conn->connect_error){
+    die("Connect error...");
+}
+// Ra day tuc la ket noi thanh cong
+// Truy van
+$sql = "select * from lophoc";
+$result = $conn->query($sql);
+//var_dump($result);die();
+$lh = [];
+if($result->num_rows > 0){
+    while ($row = $result->fetch_assoc()){
+        $lh[] = $row;
+    }
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -20,12 +43,27 @@
                             <input type="text" name="name" class="form-control" aria-describedby="emailHelp">
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Age</label>
-                            <input type="number" name="age" class="form-control" aria-describedby="emailHelp">
+                            <label for="exampleInputEmail1" class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" aria-describedby="emailHelp">
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Mark</label>
-                            <input type="number" name="mark" class="form-control" aria-describedby="emailHelp">
+                            <label for="exampleInputEmail1" class="form-label">Birthday</label>
+                            <input type="date" name="birthday" class="form-control" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Gender</label>
+                            <select name="gender" class="form-control">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Class</label>
+                            <select name="class_id" class="form-control">
+                                <?php foreach ($lh as $l):?>
+                                <option value="<?php echo $l["id"]; ?>"><?php echo $l["name"]; ?></option>
+                                <?php endforeach;?>
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

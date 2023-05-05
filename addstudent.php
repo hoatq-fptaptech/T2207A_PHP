@@ -1,18 +1,26 @@
 <?php
-//$name = $_GET["name"];
 $name = $_POST["name"];
-echo $name;
-$age = $_POST["age"];
-echo $age;
+$email = $_POST["email"];
+$birthday = $_POST["birthday"];
+$gender = $_POST["gender"];
+$class_id = $_POST["class_id"];
+// luu vao db
+// ket noi db
+$host = "localhost";
+$user = "root";
+$pwd = "root";
+$db = "t2207a";
 
-header("Location: students.php");
+$conn = new mysqli($host,$user,$pwd,$db);
+if($conn->connect_error){
+    die("Connect error...");
+}
+$sql = "insert into sinhvien(name,email,birthday,gender,class_id) values('$name','$email','$birthday','$gender',$class_id)";
+if($conn->query($sql)){
+    header("Location: database.php");
+}else{
+    echo "Error";
+}
 
-//
-$products = [
-    [
-        "name"=>"..",
-        "price"=>100,
-        "thumbnail"=>"images/...",
-        "qty"=>1
-    ]
-];
+
+// chuyen ve trang danh sach
