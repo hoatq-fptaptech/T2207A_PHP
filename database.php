@@ -1,4 +1,10 @@
 <?php
+session_start();
+$logn_user = $_SESSION["user"]?$_SESSION["user"]:null;
+if(!$logn_user){
+    header("Location: login.php");
+    die("Vui lòng đăng nhập trước khi sử dụng");
+}
 // ket noi db
 $host = "localhost";
 $user = "root";
@@ -33,6 +39,7 @@ if($result->num_rows > 0){
 </head>
 <body>
 <div class="container">
+    <h1>Bạn đang đăng nhập dưới tên: <?php echo $logn_user["name"]; ?></h1>
     <a href="form.php" class="btn btn-primary">Thêm sinh viên</a>
     <table class="table">
         <thead>

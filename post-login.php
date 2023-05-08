@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 $email = $_POST["email"];
 $password = $_POST["password"];
 
@@ -20,8 +22,9 @@ $user = null;
 while ($row = $check->fetch_assoc()){
     $user = $row;
 }
-$compare = password_verify($password,$user["passowrd"]);
+$compare = password_verify($password,$user["password"]);
 if($compare){
+    $_SESSION["user"]=$user;
     die("Đăng nhập thành công");
 }else{
     die("Email hoặc mật khẩu không chính xác");
